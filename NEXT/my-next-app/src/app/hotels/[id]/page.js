@@ -1,4 +1,5 @@
 // app/hotels/[id]/page.js
+
 const hotels = [
   { id: 101, name: "Hotel Sunrise", location: "Goa" },
   { id: 102, name: "Mountain View Resort", location: "Manali" },
@@ -7,8 +8,12 @@ const hotels = [
   { id: 105, name: "City Central Hotel", location: "Mumbai" },
 ];
 
-export default function HotelPage({ params }) {
-  const hotelId = parseInt(params.id, 10);
+// ✅ Use async and await params before accessing
+export default async function HotelPage({ params }) {
+  const resolvedParams = await params; // ✅ unwrap the Promise
+  console.log("Params received:", resolvedParams);
+
+  const hotelId = Number(resolvedParams.id);
   const hotel = hotels.find((h) => h.id === hotelId);
 
   if (!hotel) {
